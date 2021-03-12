@@ -10,15 +10,16 @@ fn main() {
     .invoke_handler(|_webview, arg| {
       use cmd::Cmd::*;
       match serde_json::from_str(arg) {
-        Err(e) => {
-          Err(e.to_string())
-        }
+        Err(e) => Err(e.to_string()),
         Ok(command) => {
           match command {
             // definitions for your custom commands from Cmd here
             MyCustomCommand { argument } => {
               //  your command code
               println!("{}", argument);
+            }
+            ListApks { callback, error } => {
+              tauri::execute_promise(_webview, move || Ok(()), callback, error)
             }
           }
           Ok(())
