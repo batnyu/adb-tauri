@@ -1,5 +1,5 @@
 {
-  "name": "test-tauri-react",
+  "name": "adb-tauri",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
