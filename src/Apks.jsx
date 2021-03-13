@@ -19,17 +19,29 @@ function Apks() {
     case "idle":
       return (
         <button onClick={() => send("FETCH", { query: "something" })}>
-          Search for something
+          Load apks
         </button>
       );
     case "loading":
-      return <div>Searching...</div>;
+      return <div>Loading...</div>;
     case "success":
-      return <div>Success! Data: {state.context.data}</div>;
+      return (
+        <div>
+          <button onClick={() => send("RETRY")}>Retry</button>
+          List of apks: (time: {state.context.data.elapsed})
+          <ul>
+            {state.context.data.apks.map((apk) => (
+              <li key={apk.package}>
+                {apk.package} - {apk.version_name} - {apk.version_code}
+              </li>
+            ))}
+          </ul>
+        </div>
+      );
     case "failure":
       return (
         <>
-          <p>{state.context.error.message}</p>
+          <p>{state.context.error}</p>
           <button onClick={() => send("RETRY")}>Retry</button>
         </>
       );

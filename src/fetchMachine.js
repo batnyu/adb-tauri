@@ -30,7 +30,9 @@ export const fetchMachine = Machine({
     },
     success: {
       entry: "notifySuccess",
-      type: "final",
+      on: {
+        RETRY: "loading",
+      },
     },
     failure: {
       on: {

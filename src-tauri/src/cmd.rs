@@ -3,34 +3,47 @@ use serde::{Deserialize, Serialize};
 #[derive(Deserialize)]
 #[serde(tag = "cmd", rename_all = "camelCase")]
 pub enum Cmd {
-  // your custom commands
-  // multiple arguments are allowed
-  // note that rename_all = "camelCase": you need to use "myCustomCommand" on JS
-  MyCustomCommand { argument: String },
   ListApks { callback: String, error: String },
 }
 
 #[derive(Serialize)]
-struct Response<'a> {
-  value: u64,
-  message: &'a str,
+pub struct Response {
+  pub apks: Vec<Apk>,
+  pub elapsed: f64
 }
 
-struct Apk {}
-
-#[derive(Debug, Clone)]
-struct CommandError<'a> {
-  message: &'a str,
+#[derive(Serialize)]
+pub struct Apk {
+  package: String,
+  version_name: Option<String>,
+  version_code: Option<String>,
 }
 
-impl<'a> CommandError<'a> {
-  fn new(message: &'a str) -> Self {
-    Self { message }
+impl Apk {
+  pub fn new(package: String, version_name: Option<String>, version_code: Option<String>) -> Apk {
+    Apk {
+      package,
+      version_name,
+      version_code
+    }
   }
 }
 
-impl<'a> std::fmt::Display for CommandError<'a> {
-  fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-    write!(f, "{}", self.message)
-  }
-}
+// #[derive(Debug, Clone)]
+// pub struct CommandError<'a> {
+//   message: &'a str,
+// }
+
+// impl<'a> CommandError<'a> {
+//   pub fn new(message: &'a str) -> Self {
+//     Self { message }
+//   }
+// }
+
+// impl<'a> std::fmt::Display for CommandError<'a> {
+//   fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+//     write!(f, "{}", self.message)
+//   }
+// }
+
+// impl<'a> std::error::Error for CommandError<'a> {}
