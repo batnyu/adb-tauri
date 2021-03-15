@@ -1,3 +1,4 @@
+use adb_cmd::Apk;
 use serde::{Deserialize, Serialize};
 
 #[derive(Deserialize)]
@@ -9,24 +10,7 @@ pub enum Cmd {
 #[derive(Serialize)]
 pub struct Response {
   pub apks: Vec<Apk>,
-  pub elapsed: f64
-}
-
-#[derive(Serialize)]
-pub struct Apk {
-  package: String,
-  version_name: Option<String>,
-  version_code: Option<String>,
-}
-
-impl Apk {
-  pub fn new(package: String, version_name: Option<String>, version_code: Option<String>) -> Apk {
-    Apk {
-      package,
-      version_name,
-      version_code
-    }
-  }
+  pub elapsed: f64,
 }
 
 // #[derive(Debug, Clone)]

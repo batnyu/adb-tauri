@@ -4,6 +4,7 @@
 name = "adb-tauri"
 version = "0.1.0"
 dependencies = [
+ "adb_cmd",
  "anyhow",
  "lazy_static",
  "rayon",
@@ -12,6 +13,17 @@ dependencies = [
  "serde_json",
  "tauri",
  "winres",
+]
+
+[[package]]
+name = "adb_cmd"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "lazy_static",
+ "rayon",
+ "regex",
+ "serde",
 ]
 
 [[package]]
